@@ -75,7 +75,7 @@ class Mydb(object):
 
 def select_host():
     """return ip, community"""
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     sql = "select ip, community from hostinfo"
     rows = mydb.select(sql)
     return rows
@@ -92,7 +92,7 @@ def insert_hostlog(sn=[0]):
     res = select_ping(rows)
 
     # 插入ipinfo 表
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     values = []
@@ -131,7 +131,7 @@ def insert_hosthour():
                     where `timestamp` between '%s' and '%s' group by ip''' % (start_time, end_time)
     insert_sql = '''insert into hosthour(ip,`drop`, delay,ibps, obps, iUpps, oUpps, iMpps, oMpps, discards, odiscards, epps, oepps, `timestamp`)
                     values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s, %s, %s)'''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
@@ -151,7 +151,7 @@ def insert_hosthourx():
     insert_sql = '''insert into hosthourx(ip,`drop`, delay, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards, odiscards, epps,oepps, `timestamp`)
                     values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s, %s, %s, %s)'''
 
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
@@ -174,7 +174,7 @@ def insert_hostday():
                     where `timestamp` between '%s' and '%s' group by ip''' % (start_time, end_time)
     insert_sql = '''insert into hostday(ip,`drop`,delay, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards,odiscards, epps,oepps, `timestamp`)
                     values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s,%s,%s, %s)'''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
@@ -194,7 +194,7 @@ def insert_hostdayx():
                     max(epps), max(oepps) from hosthourx where `timestamp` between '%s' and '%s' group by ip''' % (start_time, end_time)
     insert_sql = '''insert into hostdayx(ip,`drop`,delay, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards,odiscards, epps, oepps, `timestamp`)
                     values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s)'''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestampa
@@ -210,7 +210,7 @@ def insert_hostdayx():
 
 def insert_portinfo(params=[]):
     """"insert data to portinfo"""
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     replace_temp_sql = '''replace into portinfo_temp(`ip`, `port`, `desc`, `speed`, `state`,`ibps`, `obps`, `iUpps`, `oUpps`, `iMpps`,
                                         `oMpps`, `discards`, `odiscards`, `epps`, `oepps`, `timestamp`, sn) values(%s, %s, %s, %s/1000000, %s, %s,
                                          %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
@@ -256,7 +256,7 @@ def insert_portlog():
                     where ibps>0 or obps>0 or iUpps>0 or oUpps>0 or iMpps>0 or oMpps>0 or `discards` >0 or `odiscards`  '''
     insert_sql = '''insert into `portlog`(`ip`,`port`, `ibps`, `obps`, `iUpps`, `oUpps`, `iMpps`, `oMpps`, `discards`,`odiscards`,
                     `epps`, `oepps`,`timestamp`, sn) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )'''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     params = mydb.select(select_sql)
     mydb.insert_many(insert_sql, params)
     """
@@ -277,7 +277,7 @@ def insert_porthour():
 
     insert_sql = ''' insert into porthour(ip, port, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards, odiscards, epps, oepps, `timestamp`)
                      values(%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s) '''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
@@ -299,7 +299,7 @@ def insert_porthourx():
     insert_sql = ''' insert into porthourx(ip, port, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards, odiscards, epps, oepps,  `timestamp`)
                      values(%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s) '''
 
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
@@ -322,7 +322,7 @@ def insert_portday():
 
     insert_sql = ''' insert into portday(ip, port, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards, odiscards, epps, oepps,  `timestamp`)
                      values(%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s) '''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host='localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
