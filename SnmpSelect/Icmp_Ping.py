@@ -222,10 +222,7 @@ def select_ping(rows):
 
 
 if __name__ == '__main__':
-    rows = [['192.168.15.21', 'changan'],['192.168.15.22',   'changan'],
-            ['192.168.15.31',   'changan'],['192.168.15.32',   'changan'],
-            ['192.168.15.33',   'changan'] ,['192.168.15.34',   'changan'],
-            ['192.168.15.101',  'changan']]
+    rows = [["localhost"]]
     res = select_ping(rows)
     print res
 
