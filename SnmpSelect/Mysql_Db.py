@@ -343,7 +343,7 @@ def insert_portdayx():
 
     insert_sql = ''' insert into portdayx(ip, port, ibps, obps, iUpps, oUpps, iMpps, oMpps, discards, odiscards, epps, oepps,  `timestamp`)
                      values(%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s,%s, %s) '''
-    mydb = Mydb(host='192.168.15.100', user='root', passwd='123456', db='dg_server')
+    mydb = Mydb(host= 'localhost', user='root', passwd='123456', db='test')
     paras = mydb.select(select_sql)
 
     params = []  # 添加timestamp
